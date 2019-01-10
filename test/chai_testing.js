@@ -1,7 +1,10 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = 'https://census‐toy.nceng.net/prod/toy‐census';
-let should = chai.should();
+let should = require('chai').should();
+let expect = require('chai').expect;
+let supertest = require('supertest');
+let  api = 'https://census‐toy.nceng.net/prod/toy‐census';
 chai.use(chaiHttp);
 
 let  users = [
@@ -291,7 +294,7 @@ describe('/POST ', () => {
            users
         }
       chai.request(server)
-          .post('/request')
+          .post('')
           .send(request)
           .end((err, res) => {
                 res.should.have.status(200);
