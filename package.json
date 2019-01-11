@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "chai": "^3.2.0",
-    "chai-http": "^1.0.0"
+    "chai-http": "^1.0.0",
+    "es6-promise": "^4.2.5",
+    "isomorphic-fetch": "^2.2.1"
   }
 }

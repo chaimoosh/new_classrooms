@@ -1,11 +1,8 @@
-let chai = require('chai');
-let chaiHttp = require('chai-http');
+//import fetch from 'isomorphic-fetch';
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 let server = 'https://census‐toy.nceng.net/prod/toy‐census';
-let should = require('chai').should();
-let expect = require('chai').expect;
-let supertest = require('supertest');
-let  api = 'https://census‐toy.nceng.net/prod/toy‐census';
-chai.use(chaiHttp);
+
 
 let  users = [
     {
@@ -270,58 +267,72 @@ let  users = [
     }
   ]
 
-//this is to test if you put in valid data that it comes back ok
-describe('/POST', () => {
-    it('it should not throw errors when making a proper request'), (done) => {
-        let request = {
-            "actionType":"CountByCountry",
-            "users":users
-        }
-        chai.request(server)
-            .post('/request')
-            .send(request)
-            .end((err, res) => {
-                debugger
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-            })
-    }
-})
-
-// this is to test if you try to make a POST request with just a user and no action type
-describe('/POST ', () => {
-    it('it should not POST a request without an action type', (done) => {
-        let request = {
-           users
-        }
-      chai.request(server)
-          .post('')
-          .send(request)
-          .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('errors');
-                res.body.errors.pages.should.have.property('kind').eql('required');
-            done();
-          });
-    });
-})
-
-// this is to test if you just put in an action type but no user data
-describe('/POST', () => {
-  it('it should not POST a request withou user data', (done)=> {
-      let request = {
-        "actionType":"CountByCountry"
+  fetch( "https://census%E2%80%90toy.nceng.net/prod/toy%E2%80%90census?CountByCountry=AU", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: {
+          "actionType":"CountByCountry",
+          "users":[
+            {
+              "gender": "male",
+              "name": {
+                "title": "mr",
+                "first": "earl",
+                "last": "caldwell"
+              },
+              "location": {
+                "street": "7611 north street",
+                "city": "st albans",
+                "state": "shropshire",
+                "postcode": "A44 9ZJ",
+                "coordinates": {
+                  "latitude": "6.7138",
+                  "longitude": "-54.4892"
+                },
+                "timezone": {
+                  "offset": "+3:30",
+                  "description": "Tehran"
+                }
+              },
+              "email": "earl.caldwell@example.com",
+              "login": {
+                "uuid": "419c8cc6-31d8-4882-90cf-a46819275946",
+                "username": "silverzebra679",
+                "password": "102030",
+                "salt": "oe1FIFiY",
+                "md5": "98a02872c072c55b87f354c18221a183",
+                "sha1": "30fc8ecef3dde3d1137756b54f5bec88f0151bd6",
+                "sha256": "5d136751fc7d5686381f2574c3b73fb4baab8255d8353a95d9c78a0217f6d4c4"
+              },
+              "dob": {
+                "date": "1959-07-16T20:09:25Z",
+                "age": 59
+              },
+              "registered": {
+                "date": "2008-07-12T03:25:30Z",
+                "age": 10
+              },
+              "phone": "016973 27070",
+              "cell": "0713-876-358",
+              "id": {
+                "name": "NINO",
+                "value": "WL 31 39 06 D"
+              },
+              "picture": {
+                "large": "https://randomuser.me/api/portraits/men/51.jpg",
+                "medium": "https://randomuser.me/api/portraits/med/men/51.jpg",
+                "thumbnail": "https://randomuser.me/api/portraits/thumb/men/51.jpg"
+              },
+              "nat": "GB"
+            }
+          ]
       }
-      chai.request(server)
-          .post('/request')
-          .send(request)
-          .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('errors');
-                res.body.errors.pages.should.have.property('kind').eql('required');
-            done();
-  })
-})
-})
+    })
+      .then(response => response.json())
+      .then(resp => {
+        console.log(resp);
+      })
+      .catch(error => console.log(error));
+  ;
