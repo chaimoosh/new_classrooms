@@ -266,68 +266,16 @@ let  users = [
       "nat": "NZ"
     }
   ]
-
-  fetch( "https://census%E2%80%90toy.nceng.net/prod/toy%E2%80%90census?CountByCountry=AU", {
+//https://census‐toy.nceng.net/prod/toy‐census
+  fetch("https://census-toy.nceng.net/prod/toy-census", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: {
-          "actionType":"CountByCountry",
-          "users":[
-            {
-              "gender": "male",
-              "name": {
-                "title": "mr",
-                "first": "earl",
-                "last": "caldwell"
-              },
-              "location": {
-                "street": "7611 north street",
-                "city": "st albans",
-                "state": "shropshire",
-                "postcode": "A44 9ZJ",
-                "coordinates": {
-                  "latitude": "6.7138",
-                  "longitude": "-54.4892"
-                },
-                "timezone": {
-                  "offset": "+3:30",
-                  "description": "Tehran"
-                }
-              },
-              "email": "earl.caldwell@example.com",
-              "login": {
-                "uuid": "419c8cc6-31d8-4882-90cf-a46819275946",
-                "username": "silverzebra679",
-                "password": "102030",
-                "salt": "oe1FIFiY",
-                "md5": "98a02872c072c55b87f354c18221a183",
-                "sha1": "30fc8ecef3dde3d1137756b54f5bec88f0151bd6",
-                "sha256": "5d136751fc7d5686381f2574c3b73fb4baab8255d8353a95d9c78a0217f6d4c4"
-              },
-              "dob": {
-                "date": "1959-07-16T20:09:25Z",
-                "age": 59
-              },
-              "registered": {
-                "date": "2008-07-12T03:25:30Z",
-                "age": 10
-              },
-              "phone": "016973 27070",
-              "cell": "0713-876-358",
-              "id": {
-                "name": "NINO",
-                "value": "WL 31 39 06 D"
-              },
-              "picture": {
-                "large": "https://randomuser.me/api/portraits/men/51.jpg",
-                "medium": "https://randomuser.me/api/portraits/med/men/51.jpg",
-                "thumbnail": "https://randomuser.me/api/portraits/thumb/men/51.jpg"
-              },
-              "nat": "GB"
-            }
-          ]
+          "actionType":"CountPasswordComplexity",
+          "top":0,
+          "users":users
       }
     })
       .then(response => response.json())
