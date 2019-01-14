@@ -1,6 +1,7 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-let server = 'https://census‐toy.nceng.net/prod/toy‐census';
+// https://census-toy.nceng.net/prod/toy-census
+let server = 'https://census-toy.nceng.net/prod/toy-census';
 let should = require('chai').should();
 let expect = require('chai').expect;
 let supertest = require('supertest');
@@ -281,7 +282,6 @@ describe('/POST', () => {
             .post('/request')
             .send(request)
             .end((err, res) => {
-                debugger
                 res.should.have.status(200);
                 res.body.should.be.a('array');
             })
@@ -302,14 +302,14 @@ describe('/POST ', () => {
                 res.body.should.be.a('object');
                 res.body.should.have.property('errors');
                 res.body.errors.pages.should.have.property('kind').eql('required');
-            done();
+            //done();
           });
     });
 })
 
 // this is to test if you just put in an action type but no user data
 describe('/POST', () => {
-  it('it should not POST a request withou user data', (done)=> {
+  it('it should not POST a request without user data', (done)=> {
       let request = {
         "actionType":"CountByCountry"
       }
